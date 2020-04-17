@@ -1,0 +1,12 @@
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.exe
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.deps.json
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.runtimeconfig.json
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.runtimeconfig.dev.json
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.dll
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\bin\Debug\netcoreapp3.1\StringOfObjects.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.csproj.CoreCompileInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.AssemblyInfoInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.AssemblyInfo.cs
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.dll
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\StringOfObjects\obj\Debug\netcoreapp3.1\StringOfObjects.genruntimeconfig.cache
