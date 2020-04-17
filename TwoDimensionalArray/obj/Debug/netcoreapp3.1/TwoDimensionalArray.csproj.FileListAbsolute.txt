@@ -1,0 +1,12 @@
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.exe
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.deps.json
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.runtimeconfig.json
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.runtimeconfig.dev.json
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.dll
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\bin\Debug\netcoreapp3.1\TwoDimensionalArray.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.csproj.CoreCompileInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.AssemblyInfoInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.AssemblyInfo.cs
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.dll
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\TwoDimensionalArray\obj\Debug\netcoreapp3.1\TwoDimensionalArray.genruntimeconfig.cache
