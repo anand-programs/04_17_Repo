@@ -1,0 +1,12 @@
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.exe
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.deps.json
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.runtimeconfig.json
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.runtimeconfig.dev.json
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.dll
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\bin\Debug\netcoreapp3.1\DictionaryExample.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.csproj.CoreCompileInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.AssemblyInfoInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.AssemblyInfo.cs
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.dll
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\DictionaryExample\obj\Debug\netcoreapp3.1\DictionaryExample.genruntimeconfig.cache
