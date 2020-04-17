@@ -1,0 +1,13 @@
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.exe
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.deps.json
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.runtimeconfig.json
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.runtimeconfig.dev.json
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.dll
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\bin\Debug\netcoreapp3.1\SplittingString.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.csprojAssemblyReference.cache
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.csproj.CoreCompileInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.AssemblyInfoInputs.cache
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.AssemblyInfo.cs
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.dll
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.pdb
+C:\Users\dhanabal\Documents\04_17_Repo\SplittingString\obj\Debug\netcoreapp3.1\SplittingString.genruntimeconfig.cache

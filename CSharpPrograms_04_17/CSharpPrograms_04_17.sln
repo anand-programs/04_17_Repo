@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpPrograms_04_17", "CSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "..\RandomNumbers\RandomNumbers.csproj", "{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplittingString", "..\SplittingString\SplittingString.csproj", "{4898042C-C63F-486F-84BD-D9CD4048379B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4898042C-C63F-486F-84BD-D9CD4048379B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4898042C-C63F-486F-84BD-D9CD4048379B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4898042C-C63F-486F-84BD-D9CD4048379B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4898042C-C63F-486F-84BD-D9CD4048379B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
