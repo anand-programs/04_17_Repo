@@ -16,12 +16,15 @@ namespace ExceptionHandling
                 Console.WriteLine(answer);
             }
 
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);           // Message property of object e
             }
 
-            Console.WriteLine("Successfully executed");
+            finally
+            {
+                Console.WriteLine("Successfully executed");
+            }
         }
     }
 }
