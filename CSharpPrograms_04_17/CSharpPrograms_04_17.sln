@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpPrograms_04_17", "CSharpPrograms_04_17.csproj", "{630EAA8B-FC15-492B-984C-802AE822207D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpPrograms_04_17", "CSharpPrograms_04_17.csproj", "{630EAA8B-FC15-492B-984C-802AE822207D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "..\RandomNumbers\RandomNumbers.csproj", "{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomNumbers", "..\RandomNumbers\RandomNumbers.csproj", "{4CEEDA73-3F40-486A-9CCF-767ED5EA9BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplittingString", "..\SplittingString\SplittingString.csproj", "{4898042C-C63F-486F-84BD-D9CD4048379B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplittingString", "..\SplittingString\SplittingString.csproj", "{4898042C-C63F-486F-84BD-D9CD4048379B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoDimensionalArray", "..\TwoDimensionalArray\TwoDimensionalArray.csproj", "{4CD125BE-ACA1-4891-B5BD-4300C2286BBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoDimensionalArray", "..\TwoDimensionalArray\TwoDimensionalArray.csproj", "{4CD125BE-ACA1-4891-B5BD-4300C2286BBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringOfObjects", "..\StringOfObjects\StringOfObjects.csproj", "{3E31CEED-6F76-43A7-B9E5-BBBC7A2283BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringOfObjects", "..\StringOfObjects\StringOfObjects.csproj", "{3E31CEED-6F76-43A7-B9E5-BBBC7A2283BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryExample", "..\DictionaryExample\DictionaryExample.csproj", "{15E4B18A-2532-4486-9AF5-F6329EED3323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryExample", "..\DictionaryExample\DictionaryExample.csproj", "{15E4B18A-2532-4486-9AF5-F6329EED3323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "..\ExceptionHandling\ExceptionHandling.csproj", "{49EF1D89-9D46-41C2-A117-54DC00EA89DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{15E4B18A-2532-4486-9AF5-F6329EED3323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E4B18A-2532-4486-9AF5-F6329EED3323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E4B18A-2532-4486-9AF5-F6329EED3323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
