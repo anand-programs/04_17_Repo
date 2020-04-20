@@ -11,12 +11,12 @@ namespace ExceptionHandlingFromOutsideMethod
             try
             {
                 int answer = Test(0);
-                Console.WriteLine(5);           //if argument is 0, this line won't be executed, but catch will
+                Console.WriteLine(3);           //if argument is 0, this line won't be executed, but catch will
                 Console.WriteLine(answer);
             }
             catch(DivideByZeroException e)
             {
-                Console.WriteLine(6);
+                Console.WriteLine(4);
                 Console.WriteLine(e.Message);           //display the exception message
             }
             
@@ -25,18 +25,9 @@ namespace ExceptionHandlingFromOutsideMethod
         static int Test(int number)
         {
             Console.WriteLine(2);
+            int answer = 100 / number;          //Exception created, will return to called method
 
-            try
-            {
-                Console.WriteLine(3);
-                int answer = 100 / number;              //Exception created, control will go to catch of this method
-                return answer;
-            }
-            catch(DivideByZeroException e)
-            {
-                Console.WriteLine(4);
-                throw;                                  //control will go to called method
-            }
+            return answer;
         }
     }
 }

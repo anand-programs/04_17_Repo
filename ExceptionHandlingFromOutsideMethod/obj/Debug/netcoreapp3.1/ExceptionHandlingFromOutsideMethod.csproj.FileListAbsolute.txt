@@ -10,4 +10,3 @@ C:\Users\dhanabal\Documents\04_17_Repo\ExceptionHandlingFromOutsideMethod\bin\De
 C:\Users\dhanabal\Documents\04_17_Repo\ExceptionHandlingFromOutsideMethod\obj\Debug\netcoreapp3.1\ExceptionHandlingFromOutsideMethod.dll
 C:\Users\dhanabal\Documents\04_17_Repo\ExceptionHandlingFromOutsideMethod\obj\Debug\netcoreapp3.1\ExceptionHandlingFromOutsideMethod.pdb
 C:\Users\dhanabal\Documents\04_17_Repo\ExceptionHandlingFromOutsideMethod\obj\Debug\netcoreapp3.1\ExceptionHandlingFromOutsideMethod.genruntimeconfig.cache
-C:\Users\dhanabal\Documents\04_17_Repo\ExceptionHandlingFromOutsideMethod\obj\Debug\netcoreapp3.1\ExceptionHandlingFromOutsideMethod.csprojAssemblyReference.cache
