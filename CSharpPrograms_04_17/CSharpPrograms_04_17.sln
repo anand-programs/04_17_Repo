@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryExample", "..\Dic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "..\ExceptionHandling\ExceptionHandling.csproj", "{49EF1D89-9D46-41C2-A117-54DC00EA89DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandlingFromOutsideMethod", "..\ExceptionHandlingFromOutsideMethod\ExceptionHandlingFromOutsideMethod.csproj", "{219B108A-386C-4335-8D78-F81994370E0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49EF1D89-9D46-41C2-A117-54DC00EA89DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{219B108A-386C-4335-8D78-F81994370E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{219B108A-386C-4335-8D78-F81994370E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{219B108A-386C-4335-8D78-F81994370E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{219B108A-386C-4335-8D78-F81994370E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
