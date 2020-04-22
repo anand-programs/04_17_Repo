@@ -257,9 +257,125 @@ namespace Calculator
 
         #endregion
 
+        #region Final Calculation Method
+
         private void CalculateEquation()
         {
-            throw new NotImplementedException();
+            //Get input text in variable input
+            var input = this.UserInput.Text;
+
+            //Count for number of operators in the input text
+            int operatorCount = 0;
+            //Count number of variables
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
+                {
+                    operatorCount++;
+                }
+            }
+
+            //Character string for storing operators
+            char[] operatorString = new char[operatorCount];
+            //Integer string for storing index of operators
+            int[] operatorIndex = new int[operatorCount];
+            int j = 0;
+            //Capture operator along with its index
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
+                {
+                    //Capture operator
+                    operatorString[j] = input[i];
+
+                    //Capture index of that operator
+                    operatorIndex[j] = i;
+                    j++;
+                }
+            }
+
+            //Integer string for storing numbers in the text input
+            int[] numberString = new int[operatorCount + 1];
+            //Capture individual numbers
+            for (int i = 0; i <= operatorCount; i++)
+            {
+                //First number in the input text
+                if (i == 0)
+                {
+                    numberString[0] = int.Parse(input.Substring(0, operatorIndex[0]));
+                    //MessageBox.Show(numberString[i].ToString());
+                }
+
+                //Remaining numbers in the input text
+                else if (i != operatorCount)
+                {
+                    
+                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, operatorIndex[i] - operatorIndex[i - 1] - 1));
+                    //MessageBox.Show(numberString[i].ToString());
+                }
+
+                //Last number in the input text
+                else
+                {
+                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, input.Length - operatorIndex[i - 1] - 1));
+                    //MessageBox.Show(numberString[i].ToString());
+                }
+            }
+
+            //for(int i = 0; i <= operatorCount; i++)
+            {
+                //MessageBox.Show(numberString[i].ToString());
+            }
+            //Initialize result
+            int result = numberString[0];
+            //Solving the equation
+            for (int i = 0; i < operatorCount; i++)
+            {
+                switch (operatorString[i])
+                {
+                    case '+':
+                        result = Add(result, numberString[i + 1]);
+                        break;
+
+                    case '-':
+                        result = Subtract(result, numberString[i + 1]);
+                        break;
+
+                    case '*':
+                        result = Multiply(result, numberString[i + 1]);
+                        break;
+
+                    case '/':
+                        result = Divide(result, numberString[i + 1]);
+                        break;
+                }
+            }
+            MessageBox.Show(result.ToString());
         }
+
+        #endregion
+
+        #region Operator Methods for Final Calculaiton Method
+        private int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        private int Subtract(int a, int b)
+        {
+            return a - b;
+        }
+
+        private int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
+        private int Divide(int a, int b)
+        {
+            return a / b;
+        }
+
+        #endregion
     }
-}
+}//TODO: operator priority, decimal values, initial minus sign, brackets
