@@ -271,6 +271,10 @@ namespace Calculator
             {
                 if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
                 {
+                    if (i == 0)
+                    {
+                        continue;
+                    }
                     operatorCount++;
                 }
             }
@@ -285,6 +289,10 @@ namespace Calculator
             {
                 if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
                 {
+                    if (i == 0)
+                    {
+                        continue;
+                    }
                     //Capture operator
                     operatorString[j] = input[i];
 
@@ -293,7 +301,13 @@ namespace Calculator
                     j++;
                 }
             }
-
+           
+            int minusIndicator = 0;
+            //Checking if there is a minus sign at the start
+            if(operatorIndex[0] == 0)
+            {
+                 minusIndicator = 1;
+            }
             //Integer string for storing numbers in the text input
             int[] numberString = new int[operatorCount + 1];
             //Capture individual numbers
@@ -317,7 +331,7 @@ namespace Calculator
                 //Last number in the input text
                 else
                 {
-                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, input.Length - operatorIndex[i - 1] - 1));
+                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, input.Length + minusIndicator - operatorIndex[i - 1] - 1));
                     //MessageBox.Show(numberString[i].ToString());
                 }
             }
@@ -378,4 +392,4 @@ namespace Calculator
 
         #endregion
     }
-}//TODO: operator priority, decimal values, initial minus sign, brackets
+}//TODO: operator priority, decimal values, brackets
