@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -308,15 +301,16 @@ namespace Calculator
             {
                  minusIndicator = 1;
             }
+
             //Integer string for storing numbers in the text input
-            int[] numberString = new int[operatorCount + 1];
+            double[] numberString = new double[operatorCount + 1];
             //Capture individual numbers
             for (int i = 0; i <= operatorCount; i++)
             {
                 //First number in the input text
                 if (i == 0)
                 {
-                    numberString[0] = int.Parse(input.Substring(0, operatorIndex[0]));
+                    numberString[0] = double.Parse(input.Substring(0, operatorIndex[0]));
                     //MessageBox.Show(numberString[i].ToString());
                 }
 
@@ -324,44 +318,117 @@ namespace Calculator
                 else if (i != operatorCount)
                 {
                     
-                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, operatorIndex[i] - operatorIndex[i - 1] - 1));
+                    numberString[i] = double.Parse(input.Substring(operatorIndex[i - 1] + 1, operatorIndex[i] - operatorIndex[i - 1] - 1));
                     //MessageBox.Show(numberString[i].ToString());
                 }
 
                 //Last number in the input text
                 else
                 {
-                    numberString[i] = int.Parse(input.Substring(operatorIndex[i - 1] + 1, input.Length + minusIndicator - operatorIndex[i - 1] - 1));
+                    numberString[i] = double.Parse(input.Substring(operatorIndex[i - 1] + 1, input.Length + minusIndicator - operatorIndex[i - 1] - 1));
                     //MessageBox.Show(numberString[i].ToString());
                 }
             }
 
-            //for(int i = 0; i <= operatorCount; i++)
-            {
-                //MessageBox.Show(numberString[i].ToString());
-            }
             //Initialize result
-            int result = numberString[0];
+            double result = numberString[0];
             //Solving the equation
             for (int i = 0; i < operatorCount; i++)
             {
-                switch (operatorString[i])
+                //For current operator being Multiply or Divide operator
+                if (operatorString[i] == '*' || operatorString[i] == '/')
                 {
-                    case '+':
-                        result = Add(result, numberString[i + 1]);
-                        break;
+                    switch (operatorString[i])
+                    {
+                        case '*':
+                            result = Multiply(result, numberString[i + 1]);
+                            break;
 
-                    case '-':
-                        result = Subtract(result, numberString[i + 1]);
-                        break;
+                        case '/':
+                            result = Divide(result, numberString[i + 1]);
+                            break;
+                    }
+                }
 
-                    case '*':
-                        result = Multiply(result, numberString[i + 1]);
-                        break;
+                //For current operator being Add or Subtract operator
+                else
+                {
+                    //Operators other than last one
+                    if (i != operatorCount - 1)
+                    {
+                        //For next operator being Multiply or Divide operator
+                        if (operatorString[i + 1] == '*' || operatorString[i + 1] == '/')
+                        {
+                            //Store result and operator in a temperory variable
+                            double tempResult = result;
+                            char tempOperator = operatorString[i];
 
-                    case '/':
-                        result = Divide(result, numberString[i + 1]);
-                        break;
+                            //Multiply or Divide at least once since we are in the loop
+                            do
+                            {
+                                i++;
+
+                                //Multiply or Divide the next two numbers
+                                switch (operatorString[i])
+                                {
+                                    case '*':
+                                        result = Multiply(numberString[i], numberString[i + 1]);
+                                        break;
+
+                                    case '/':
+                                        result = Divide(numberString[i], numberString[i + 1]);
+                                        break;
+                                }
+
+                                numberString[i + 1] = result;
+                            }
+
+                            //Execute the loop till the next operator is Multiply or Divide
+                            while (i != operatorCount - 1 && (operatorString[i + 1] == '*' || operatorString[i + 1] == '/'));
+
+                            //Add or Subtract the result of next two number with the current number
+                            switch (tempOperator)
+                            {
+                                case '+':
+                                    result = Add(tempResult, result);
+                                    break;
+
+                                case '-':
+                                    result = Subtract(tempResult, result);
+                                    break;
+                            }
+                        }
+
+                        //For next operator not being Multiply or Divide
+                        else
+                        {
+                            switch (operatorString[i])
+                            {
+                                case '+':
+                                    result = Add(result, numberString[i + 1]);
+                                    break;
+
+                                case '-':
+                                    result = Subtract(result, numberString[i + 1]);
+                                    break;
+                            }
+                        }
+                    }
+
+                    //Last operator
+                    else
+                    {
+                        switch (operatorString[i])
+                        {
+                            case '+':
+                                result = Add(result, numberString[i + 1]);
+                                break;
+
+                            case '-':
+                                result = Subtract(result, numberString[i + 1]);
+                                break;
+                        }
+                    }
                 }
             }
             MessageBox.Show(result.ToString());
@@ -370,26 +437,26 @@ namespace Calculator
         #endregion
 
         #region Operator Methods for Final Calculaiton Method
-        private int Add(int a, int b)
+        private double Add(double a, double b)
         {
             return a + b;
         }
 
-        private int Subtract(int a, int b)
+        private double Subtract(double a, double b)
         {
             return a - b;
         }
 
-        private int Multiply(int a, int b)
+        private double Multiply(double a, double b)
         {
             return a * b;
         }
 
-        private int Divide(int a, int b)
+        private double Divide(double a, double b)
         {
             return a / b;
         }
 
         #endregion
     }
-}//TODO: operator priority, decimal values, brackets
+}
