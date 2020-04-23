@@ -53,6 +53,7 @@
             this.CEButton = new System.Windows.Forms.Button();
             this.ButtonsPanel.SuspendLayout();
             this.SuspendLayout();
+            this.KeyPreview = true;
             // 
             // UserInput
             // 
@@ -348,6 +349,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 520);
             this.Name = "Form1";
             this.Text = "Calculator";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.ButtonsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

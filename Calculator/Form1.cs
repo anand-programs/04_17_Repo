@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -43,7 +44,7 @@ namespace Calculator
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            //Delete the character to the right of  cursor
+            //Delete the character to the left of  cursor
             DeleteTextValue();
 
             //Focus the cursor
@@ -56,15 +57,23 @@ namespace Calculator
 
         private void DivisonButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue("/");
-
+            //Restricting from entering '/' after an operator or decimal
+            if (this.UserInput.Text != "" && Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                InsertTextValue("/");
+            }
+            
             //Focus the cursor
             FocusInputText();
         }
 
         private void MultiplicationButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue("*");
+            //Restricting from entering '*' after an operator or decimal
+            if (this.UserInput.Text != "" && Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                InsertTextValue("*");
+            }
 
             //Focus the cursor
             FocusInputText();
@@ -72,7 +81,11 @@ namespace Calculator
 
         private void SubtractionButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue("-");
+            //Restricting from entering '-' after an operator or decimal
+            if (this.UserInput.Text == "" || Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                InsertTextValue("-");
+            }
 
             //Focus the cursor
             FocusInputText();
@@ -80,7 +93,11 @@ namespace Calculator
 
         private void AdditionButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue("+");
+            //Restricting from entering '+' after an operator or decimal
+            if (this.UserInput.Text != "" && Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                InsertTextValue("+");
+            }
 
             //Focus the cursor
             FocusInputText();
@@ -88,7 +105,13 @@ namespace Calculator
 
         private void EqualsButton_Click(object sender, EventArgs e)
         {
-            CalculateEquation();
+            if(!this.UserInput.Text.Contains('='))
+            {
+                InsertAnswer(CalculateEquation());
+            }
+
+            //Focus the cursor
+            FocusInputText();
         }
 
         private void SignButton_Click(object sender, EventArgs e)
@@ -117,7 +140,11 @@ namespace Calculator
         //Inserts the specified number
         private void DecimalButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue(".");
+            //Restricting from entering '.' after an operator or decimal
+            if (Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                InsertTextValue(".");
+            }
 
             //Focus the cursor
             FocusInputText();
@@ -125,7 +152,11 @@ namespace Calculator
 
         private void ZeroButton_Click(object sender, EventArgs e)
         {
-            InsertTextValue("0");
+            //Restricting from entering '0' after '/'
+            if ((this.UserInput.Text[this.UserInput.Text.Length - 1] != '/'))
+            {
+                InsertTextValue("0");
+            }
 
             //Focus the cursor
             FocusInputText();
@@ -228,21 +259,37 @@ namespace Calculator
             this.UserInput.SelectionLength = 0;
         }
 
-        //Deletes a character to the right of the cursor
+        private void InsertAnswer(double value)
+        {
+            //Remember selection start
+            var selectionStart = this.UserInput.SelectionStart;
+
+            //Set new text
+            this.UserInput.Text = Convert.ToString(value);
+
+            //Restore selection start
+            this.UserInput.SelectionStart = selectionStart + 1 + Convert.ToString(value).Length;
+
+            //Set selection lenght to 0 (selecting a part will focus the cursor to start of selection)
+            this.UserInput.SelectionLength = 0;
+        }
+
+        //Deletes a character to the left of the cursor
         private void DeleteTextValue()
         {
             //If there is nothing to delete
-            if (this.UserInput.Text.Length < this.UserInput.SelectionStart + 1)
+            if (this.UserInput.Text == "")
                 return;
 
             //Remember selection start
             var selectionStart = this.UserInput.SelectionStart;
 
-            //Dlete the character to the right of the cusror
-            this.UserInput.Text = this.UserInput.Text.Remove(this.UserInput.SelectionStart, 1);
+            //Delete the character to the left of the cusror
+            this.UserInput.Text = this.UserInput.Text.Remove(this.UserInput.SelectionStart - 1, 1);
 
             //Restore selection start
-            this.UserInput.SelectionStart = selectionStart;
+            this.UserInput.SelectionStart = selectionStart - 1;
+            //this.UserInput.Select(selectionStart - 1, 1);
 
             //Set selection lenght to 0 (selecting a part will focus the cursor to start of selection)
             this.UserInput.SelectionLength = 0;
@@ -252,7 +299,7 @@ namespace Calculator
 
         #region Final Calculation Method
 
-        private void CalculateEquation()
+        private double CalculateEquation()
         {
             //Get input text in variable input
             var input = this.UserInput.Text;
@@ -431,7 +478,10 @@ namespace Calculator
                     }
                 }
             }
-            MessageBox.Show(result.ToString());
+
+            //this.UserInput.Text = this.UserInput.Text + "=" + result;
+
+            return result;
         }
 
         #endregion
@@ -455,6 +505,29 @@ namespace Calculator
         private double Divide(double a, double b)
         {
             return a / b;
+        }
+
+        #endregion
+
+        #region Restricting Invalid Input Method
+
+        //Restrict user from entering invalid Input
+        //A KeyPress component had to be added in the InitializeComponent method to run this method
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //If an operator has been pressed
+            if (this.UserInput.Text != "" && !Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            {
+                //If an operator has been pressed again OR a '0' follows a '/'
+                if (!Char.IsDigit(e.KeyChar) || (this.UserInput.Text[this.UserInput.Text.Length - 1]) == '/' && e.KeyChar == '0')
+                {
+                    //Handle this event, that is, tha basic functionality of this event will be bypassed, that is not able to press key
+                    e.Handled = true;
+                }
+            }
+
+            //Focus the cursor
+            FocusInputText();
         }
 
         #endregion
