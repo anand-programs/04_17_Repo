@@ -53,8 +53,10 @@ namespace Calculator
 
         #endregion
 
-        #region Operators Methods
+        //initializing variable to indicate if equal to button has been pressed
+        int resultIndicator = 0;
 
+        #region Operators Methods
         private void DivisonButton_Click(object sender, EventArgs e)
         {
             //Restricting from entering '/' after an operator or decimal
@@ -87,6 +89,13 @@ namespace Calculator
                 InsertTextValue("-");
             }
 
+            //Delete the minus sign (make it positive) if a minus has already been inserted
+            else if (this.UserInput.Text == "-")
+            {
+                //Clear the minus sign
+                this.UserInput.Text = string.Empty;
+            }
+
             //Focus the cursor
             FocusInputText();
         }
@@ -105,9 +114,27 @@ namespace Calculator
 
         private void EqualsButton_Click(object sender, EventArgs e)
         {
-            if(!this.UserInput.Text.Contains('='))
+
+            //Store input text
+            string input = this.UserInput.Text;
+
+            //When nothing has been entered, do nothing
+            if (input.Length == 0)
+            {
+                FocusInputText();
+            }
+
+            //Do nothing if input is not a complete equation
+            else if (!Char.IsDigit(input[input.Length - 1]) && (input.Contains('+') || input.Contains('-') || input.Contains('*') || input.Contains('/')))
+            {
+                return;
+            }
+
+            //Solve if input contains complete equation
+            else
             {
                 InsertAnswer(CalculateEquation());
+                resultIndicator = 1;
             }
 
             //Focus the cursor
@@ -116,17 +143,44 @@ namespace Calculator
 
         private void SignButton_Click(object sender, EventArgs e)
         {
-            //Insert a minus sign if nothing has been inserted
-            if (this.UserInput.Text.Length == 0)
+            //If sign button is clicked when string is empty, keep string empty
+            if (this.UserInput.Text == "")
             {
-                InsertTextValue("-");
+                this.UserInput.Text = string.Empty;
+            }
+            //If textbox is not empty and does not contain any operator, insert a minus sign at the start
+            else if (this.UserInput.Text.Length != 0 && !this.UserInput.Text.Contains("+") && !this.UserInput.Text.Contains("-") && !this.UserInput.Text.Contains("*") && !this.UserInput.Text.Contains("/"))
+            {
+                //Remember selection start
+                var selectionStart = this.UserInput.SelectionStart;
+
+                //Insert a minus sign at the start of textbox
+                this.UserInput.Text = "-" + this.UserInput.Text;
+
+                //Restore selection start
+                this.UserInput.SelectionStart = selectionStart + 1;
+
+                //Set selection lenght to 0 (selecting a part will focus the cursor to start of selection)
+                this.UserInput.SelectionLength = 0;
             }
 
             //Delete the minus sign (make it positive) if a minus has already been inserted
-            else if(this.UserInput.Text == "-")
+            else if(this.UserInput.Text[0] == '-')
             {
-                //Clear the minus sign
-                this.UserInput.Text = string.Empty;
+                //Remember selection start
+                var selectionStart = this.UserInput.SelectionStart;
+
+                //Multiply the number in textbox
+                double tempTextbox = -1 * double.Parse(this.UserInput.Text);
+
+                //assign the positive number to text in textbox
+                this.UserInput.Text = tempTextbox.ToString();
+
+                //Restore selection start
+                this.UserInput.SelectionStart = selectionStart - 1;
+
+                //Set selection lenght to 0 (selecting a part will focus the cursor to start of selection)
+                this.UserInput.SelectionLength = 0;
             }
 
             //Focus the cursor
@@ -140,10 +194,24 @@ namespace Calculator
         //Inserts the specified number
         private void DecimalButton_Click(object sender, EventArgs e)
         {
-            //Restricting from entering '.' after an operator or decimal
-            if (Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            //Restricting from entering '.' if textbox is empty or after an operator or decimal
+            if (this.UserInput.Text != "" && Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
             {
-                InsertTextValue(".");
+                for (int i = this.UserInput.Text.Length - 1; i >= 0; i--)
+                {
+                    //If scan finds an operator, break
+                    if (i == 0 || this.UserInput.Text[i] == '+' || this.UserInput.Text[i] == '-' || this.UserInput.Text[i] == '*' || this.UserInput.Text[i] == '/')
+                    {
+                        InsertTextValue(".");
+                        break;
+                    }
+
+                    //If scan finds a '.' don't allow
+                    else if (this.UserInput.Text[i] == '.')
+                    {
+                        break;
+                    }
+                }
             }
 
             //Focus the cursor
@@ -152,6 +220,7 @@ namespace Calculator
 
         private void ZeroButton_Click(object sender, EventArgs e)
         {
+            
             //Restricting from entering '0' after '/'
             if ((this.UserInput.Text[this.UserInput.Text.Length - 1] != '/'))
             {
@@ -164,7 +233,17 @@ namespace Calculator
 
         private void OneButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 1
             InsertTextValue("1");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -172,7 +251,17 @@ namespace Calculator
 
         private void TwoButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 2
             InsertTextValue("2");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -180,7 +269,17 @@ namespace Calculator
 
         private void ThreeButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 3
             InsertTextValue("3");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -188,7 +287,17 @@ namespace Calculator
 
         private void FourButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 4
             InsertTextValue("4");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -196,7 +305,17 @@ namespace Calculator
 
         private void FiveButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 5
             InsertTextValue("5");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -204,7 +323,17 @@ namespace Calculator
 
         private void SixButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 6
             InsertTextValue("6");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -212,7 +341,17 @@ namespace Calculator
 
         private void SevenButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 7
             InsertTextValue("7");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -220,7 +359,17 @@ namespace Calculator
 
         private void EightButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 8
             InsertTextValue("8");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -228,7 +377,17 @@ namespace Calculator
 
         private void NineButton_Click(object sender, EventArgs e)
         {
+            //if EqualTo button has been pressed, empty the textbox and start a new text
+            if (resultIndicator == 1)
+            {
+                this.UserInput.Text = string.Empty;
+            }
+
+            //Insert value 9
             InsertTextValue("9");
+
+            //reset the result indicator to 0
+            resultIndicator = 0;
 
             //Focus the cursor
             FocusInputText();
@@ -289,7 +448,6 @@ namespace Calculator
 
             //Restore selection start
             this.UserInput.SelectionStart = selectionStart - 1;
-            //this.UserInput.Select(selectionStart - 1, 1);
 
             //Set selection lenght to 0 (selecting a part will focus the cursor to start of selection)
             this.UserInput.SelectionLength = 0;
@@ -306,7 +464,7 @@ namespace Calculator
 
             //Count for number of operators in the input text
             int operatorCount = 0;
-            //Count number of variables
+            //Count number of operators
             for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
@@ -317,6 +475,12 @@ namespace Calculator
                     }
                     operatorCount++;
                 }
+            }
+
+            //Return input text as it is if there are no operators
+            if (operatorCount == 0)
+            {
+                return Convert.ToDouble(input);
             }
 
             //Character string for storing operators
@@ -479,8 +643,6 @@ namespace Calculator
                 }
             }
 
-            //this.UserInput.Text = this.UserInput.Text + "=" + result;
-
             return result;
         }
 
@@ -515,14 +677,77 @@ namespace Calculator
         //A KeyPress component had to be added in the InitializeComponent method to run this method
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //If an operator has been pressed
-            if (this.UserInput.Text != "" && !Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+            //Restrict input to number keys, operator keys, backspace key and dot
+            if(!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.' && e.KeyChar != '+' && e.KeyChar != '-' && e.KeyChar != '*' && e.KeyChar != '/')
             {
-                //If an operator has been pressed again OR a '0' follows a '/'
-                if (!Char.IsDigit(e.KeyChar) || (this.UserInput.Text[this.UserInput.Text.Length - 1]) == '/' && e.KeyChar == '0')
+                e.Handled = true;
+            }
+
+            //If an operator is pressed, reset the result indicator to 0
+            if (e.KeyChar == '.' || e.KeyChar == '+' || e.KeyChar == '-' || e.KeyChar == '*' || e.KeyChar == '/')
+            {
+                resultIndicator = 0;
+            }
+            //If key pressed is number and if EqualTo button had already been pressed, clear the textbox and reset the result indicator
+            if (Char.IsDigit(e.KeyChar))
+            {
+                if (resultIndicator == 1)
                 {
-                    //Handle this event, that is, tha basic functionality of this event will be bypassed, that is not able to press key
-                    e.Handled = true;
+                    this.UserInput.Text = string.Empty;
+
+                    resultIndicator = 0;
+                }
+            }
+
+            //Restrict input of operators and dot when textbox is empty
+            else if (this.UserInput.Text == "" && (e.KeyChar == '.' || e.KeyChar == '+' || e.KeyChar == '*' || e.KeyChar == '/'))
+            {
+                e.Handled = true;
+            }
+
+            //Restrict input of dot when number already has a dot
+            else if (e.KeyChar == '.')
+            {
+                //If dot has been pressed
+                if (this.UserInput.Text != "" && !Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+                {
+                    //If dot has been pressed again
+                    if (!Char.IsDigit(e.KeyChar))
+                    {
+                        //Handle this event, that is, the basic functionality of this event will be bypassed, that is not able to press key
+                        e.Handled = true;
+                    }
+                }
+
+                //Check textbox from last character to first
+                for (int i = this.UserInput.Text.Length - 1; i >= 0; i--)
+                {
+                    //If scan finds an operator, break
+                    if (this.UserInput.Text[i] == '+' || this.UserInput.Text[i] == '-' || this.UserInput.Text[i] == '*' || this.UserInput.Text[i] == '/')
+                    {
+                        break;
+                    }
+
+                    //If scan finds a '.' don't allow
+                    else if (this.UserInput.Text[i] == '.')
+                    {
+                        e.Handled = true;
+                        break;
+                    }
+                }
+            }
+            //Restrict input of operator after an operator or '0' after '/'
+            else if (e.KeyChar != (char)Keys.Back)
+            {
+                //If an operator has been pressed
+                if (this.UserInput.Text != "" && !Char.IsDigit(this.UserInput.Text[this.UserInput.Text.Length - 1]))
+                {
+                    //If an operator has been pressed again OR a '0' follows a '/'
+                    if (!Char.IsDigit(e.KeyChar) || (this.UserInput.Text[this.UserInput.Text.Length - 1] == '/' && e.KeyChar == '0'))
+                    {
+                        //Handle this event, that is, the basic functionality of this event will be bypassed, that is not able to press key
+                        e.Handled = true;
+                    }
                 }
             }
 
