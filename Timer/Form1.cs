@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TimersDotTimer = System.Timers.Timer;
 
 namespace Timer
 {
@@ -60,13 +61,26 @@ namespace Timer
                 return;
             }
 
-            //Diable Start button after it has been clicked once
+            //Diable Start button after it has been clicked once and enable Pause and Reset buttons
             this.StartButton.Enabled = false;
-
-            //Enable Timer, Pause button and Reset button
-            this.TimerClock.Enabled = true;
             this.PauseButton.Enabled = true;
             this.ResetButton.Enabled = true;
+
+            //Enable Timer according to the radio button checked
+            if (FormsTimer.Checked)
+            {
+                this.TimerClock.Enabled = true;
+            }
+
+            else if (ThreadTimer.Checked)
+            {
+                MessageBox.Show("thread timer start");
+            }
+
+            else
+            {
+                TimersDotTimerClock();
+            }
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
@@ -75,7 +89,21 @@ namespace Timer
             if (!pauseButtonIndicator)
             {
                 //Stop the timer
-                this.TimerClock.Enabled = false;
+                if (FormsTimer.Checked)
+                {
+                    MessageBox.Show("forms timer pause");
+                    this.TimerClock.Enabled = false;
+                }
+
+                else if (ThreadTimer.Checked)
+                {
+                    MessageBox.Show("thread timer pause");
+                }
+
+                else
+                {
+                    MessageBox.Show("timers timer pause");
+                }
 
                 //Set the pause button indicator to true
                 pauseButtonIndicator = true;
@@ -85,7 +113,22 @@ namespace Timer
             else
             {
                 //Resume the timer
-                this.TimerClock.Enabled = true;
+                if (FormsTimer.Checked)
+                {
+                    MessageBox.Show("forms timer pause again");
+                    this.TimerClock.Enabled = true;
+                }
+
+                else if (ThreadTimer.Checked)
+                {
+                    MessageBox.Show("thread timer pause again");
+                }
+
+                else
+                {
+                    MessageBox.Show("timers timer pause again");
+                }
+                
 
                 //Set the pause button indicator to false
                 pauseButtonIndicator = false;
@@ -98,7 +141,20 @@ namespace Timer
             totalseconds = 0;
 
             //Disable Timer
-            this.TimerClock.Enabled = false;
+            if (FormsTimer.Checked)
+            {
+                this.TimerClock.Enabled = false;
+            }
+
+            else if (ThreadTimer.Checked)
+            {
+                
+            }
+
+            else
+            {
+                
+            }
 
             //Enable Start button, and disable Pause and Reset buttons
             this.StartButton.Enabled = true;
@@ -112,41 +168,14 @@ namespace Timer
             ComboBoxDefaultValues();
         }
         #endregion
-
-        #region Timer Clock Method
+            
+        #region Forms.Timer Clock Method
         private void TimerClock_Tick(object sender, EventArgs e)
         {
             //Run the timer till total seconds becomex 0
             if (totalseconds > 0)
             {
-                totalseconds--;
-
-                //Get the hours, minutes and seconds values to be displayed
-                int hours = totalseconds / 3600;
-                int minutes = (totalseconds - hours * 3600) / 60;
-                int seconds = totalseconds - hours * 3600 - minutes * 60;
-
-                //Assign empty values to indicator strings for hours, minutes and seconds values being one digit numbers
-                string hoursZeroIndicator = "";
-                string minutesZeroIndicator = "";
-                string secondsZeroIndicator = "";
-
-                //If hours is a one digit number, add a 0 before it; and similarly for minutes and seconds
-                if (hours < 10)
-                {
-                    hoursZeroIndicator = "0";
-                }
-                if (minutes < 10)
-                {
-                    minutesZeroIndicator = "0";
-                }
-                if (seconds < 10)
-                {
-                    secondsZeroIndicator = "0";
-                }
-
-                //Display the timer
-                this.TimerDisplay.Text = hoursZeroIndicator + hours.ToString() + ":" + minutesZeroIndicator + minutes.ToString() + ":" + secondsZeroIndicator + seconds.ToString();
+                RunTimer();
             }
 
             //If total seconds is 0, stop the timer
@@ -154,6 +183,45 @@ namespace Timer
             {
                 this.TimerClock.Stop();
                 MessageBox.Show("Time Over!");
+            }
+        }
+        #endregion
+
+        #region Timers.Timer Clock Method
+
+        private TimersDotTimer tiTimer;
+        private void TimersDotTimerClock()
+        {
+            //Create a Timers.Timer object with an interval of one second
+            tiTimer = new TimersDotTimer(1000);
+
+            //Call the TiTimer_Elapsed method when the timer has elapsed
+            tiTimer.Elapsed += TiTimer_Elapsed;
+
+            //Enable the timer
+            tiTimer.Enabled = true;
+        }
+
+        private void TiTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //Run the timer till total seconds becomes 0
+            if (totalseconds > 0)
+            {
+                //The TimerDisplay element of RunTimer() belongs to System.Windows.Forms, so using it from a different thread needs following statement
+                this.BeginInvoke((Action)delegate ()
+                {
+                    RunTimer();
+                });
+                
+            }
+
+            //If total seconds is 0, stop the timer
+            else
+            {
+                tiTimer.Stop();
+                tiTimer.Dispose();
+                MessageBox.Show("Time Over!");
+                return;
             }
         }
         #endregion
@@ -166,6 +234,42 @@ namespace Timer
             this.HoursComboBox.SelectedIndex = 00;
         }
 
+        #endregion
+
+        #region RunTimer Method
+        private void RunTimer()
+        {
+            totalseconds--;
+
+            //Get the hours, minutes and seconds values to be displayed
+            int hours = totalseconds / 3600;
+            int minutes = (totalseconds - hours * 3600) / 60;
+            int seconds = totalseconds - hours * 3600 - minutes * 60;
+
+            //Assign empty values to indicator strings for hours, minutes and seconds values being one digit numbers
+            string hoursZeroIndicator = "";
+            string minutesZeroIndicator = "";
+            string secondsZeroIndicator = "";
+
+            //If hours is a one digit number, add a 0 before it; and similarly for minutes and seconds
+            if (hours < 10)
+            {
+                hoursZeroIndicator = "0";
+            }
+            if (minutes < 10)
+            {
+                minutesZeroIndicator = "0";
+            }
+            if (seconds < 10)
+            {
+                secondsZeroIndicator = "0";
+            }
+
+            //Display the timer
+            this.TimerDisplay.Text = hoursZeroIndicator + hours.ToString() + ":" + minutesZeroIndicator + minutes.ToString() + ":" + secondsZeroIndicator + seconds.ToString();
+
+            return;
+        }
         #endregion
     }
 }

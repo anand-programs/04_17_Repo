@@ -40,6 +40,9 @@
             this.MinutesComboBox = new System.Windows.Forms.ComboBox();
             this.SecondsComboBox = new System.Windows.Forms.ComboBox();
             this.TimerClock = new System.Windows.Forms.Timer(this.components);
+            this.FormsTimer = new System.Windows.Forms.RadioButton();
+            this.ThreadTimer = new System.Windows.Forms.RadioButton();
+            this.TimersTimer = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // HoursLabel
@@ -76,7 +79,7 @@
             // 
             this.TimerDisplay.AutoSize = true;
             this.TimerDisplay.Font = new System.Drawing.Font("MS UI Gothic", 67.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TimerDisplay.Location = new System.Drawing.Point(2, 110);
+            this.TimerDisplay.Location = new System.Drawing.Point(2, 150);
             this.TimerDisplay.Name = "TimerDisplay";
             this.TimerDisplay.Size = new System.Drawing.Size(444, 114);
             this.TimerDisplay.TabIndex = 3;
@@ -144,11 +147,50 @@
             this.TimerClock.Interval = 1000;
             this.TimerClock.Tick += new System.EventHandler(this.TimerClock_Tick);
             // 
+            // FormsTimer
+            // 
+            this.FormsTimer.AutoSize = true;
+            this.FormsTimer.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.FormsTimer.Location = new System.Drawing.Point(12, 102);
+            this.FormsTimer.Name = "FormsTimer";
+            this.FormsTimer.Size = new System.Drawing.Size(114, 21);
+            this.FormsTimer.TabIndex = 9;
+            this.FormsTimer.TabStop = true;
+            this.FormsTimer.Text = "FormsTimer";
+            this.FormsTimer.UseVisualStyleBackColor = true;
+            // 
+            // ThreadTimer
+            // 
+            this.ThreadTimer.AutoSize = true;
+            this.ThreadTimer.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ThreadTimer.Location = new System.Drawing.Point(161, 102);
+            this.ThreadTimer.Name = "ThreadTimer";
+            this.ThreadTimer.Size = new System.Drawing.Size(120, 21);
+            this.ThreadTimer.TabIndex = 10;
+            this.ThreadTimer.TabStop = true;
+            this.ThreadTimer.Text = "ThreadTimer";
+            this.ThreadTimer.UseVisualStyleBackColor = true;
+            // 
+            // TimersTimer
+            // 
+            this.TimersTimer.AutoSize = true;
+            this.TimersTimer.Font = new System.Drawing.Font("MS UI Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TimersTimer.Location = new System.Drawing.Point(306, 102);
+            this.TimersTimer.Name = "TimersTimer";
+            this.TimersTimer.Size = new System.Drawing.Size(119, 21);
+            this.TimersTimer.TabIndex = 11;
+            this.TimersTimer.TabStop = true;
+            this.TimersTimer.Text = "TimersTimer";
+            this.TimersTimer.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 364);
+            this.Controls.Add(this.TimersTimer);
+            this.Controls.Add(this.ThreadTimer);
+            this.Controls.Add(this.FormsTimer);
             this.Controls.Add(this.SecondsComboBox);
             this.Controls.Add(this.MinutesComboBox);
             this.Controls.Add(this.HoursComboBox);
@@ -182,6 +224,9 @@
         private System.Windows.Forms.ComboBox MinutesComboBox;
         private System.Windows.Forms.ComboBox SecondsComboBox;
         private System.Windows.Forms.Timer TimerClock;
+        private System.Windows.Forms.RadioButton FormsTimer;
+        private System.Windows.Forms.RadioButton ThreadTimer;
+        private System.Windows.Forms.RadioButton TimersTimer;
     }
 }
 
