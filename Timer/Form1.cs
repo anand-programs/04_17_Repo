@@ -5,9 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimersDotTimer = System.Timers.Timer;
+using ThreadsDotTimer = System.Threading.Timer;
 
 namespace Timer
 {
@@ -66,43 +68,75 @@ namespace Timer
             this.PauseButton.Enabled = true;
             this.ResetButton.Enabled = true;
 
+            //Diable the Combo boxes once timer has started
+            this.SecondsComboBox.Enabled = false;
+            this.MinutesComboBox.Enabled = false;
+            this.HoursComboBox.Enabled = false;
+
             //Enable Timer according to the radio button checked
             if (FormsTimer.Checked)
             {
                 this.TimerClock.Enabled = true;
+
+                //Disable selection of other radio buttons once timer has started
+                ThreadTimer.Enabled = false;
+                TimersTimer.Enabled = false;
             }
 
             else if (ThreadTimer.Checked)
             {
-                MessageBox.Show("thread timer start");
-            }
+                ThreadsDotTimerClock();
 
+                //Disable selection of other radio buttons
+                FormsTimer.Enabled = false;
+                TimersTimer.Enabled = false;
+            }
             else
             {
                 TimersDotTimerClock();
+
+                //Disable selection of other radio buttons
+                FormsTimer.Enabled = false;
+                ThreadTimer.Enabled = false;
             }
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
+            //Diable the Combo boxes once timer has started
+            this.SecondsComboBox.Enabled = false;
+            this.MinutesComboBox.Enabled = false;
+            this.HoursComboBox.Enabled = false;
+
             //If pause button has not been pressed before
             if (!pauseButtonIndicator)
             {
                 //Stop the timer
                 if (FormsTimer.Checked)
                 {
-                    MessageBox.Show("forms timer pause");
                     this.TimerClock.Enabled = false;
+
+                    //Disable selection of other radio buttons
+                    ThreadTimer.Enabled = false;
+                    TimersTimer.Enabled = false;
                 }
 
                 else if (ThreadTimer.Checked)
                 {
-                    MessageBox.Show("thread timer pause");
+                    thTimer.Dispose();
+
+                    //Disable selection of other radio buttons
+                    FormsTimer.Enabled = false;
+                    TimersTimer.Enabled = false;
                 }
 
                 else
                 {
-                    MessageBox.Show("timers timer pause");
+                    tiTimer.Dispose();
+
+                    //Disable selection of other radio buttons
+                    FormsTimer.Enabled = false;
+                    ThreadTimer.Enabled = false;
                 }
 
                 //Set the pause button indicator to true
@@ -115,20 +149,31 @@ namespace Timer
                 //Resume the timer
                 if (FormsTimer.Checked)
                 {
-                    MessageBox.Show("forms timer pause again");
                     this.TimerClock.Enabled = true;
+
+                    //Disable selection of other radio buttons
+                    FormsTimer.Enabled = false;
+                    TimersTimer.Enabled = false;
                 }
 
                 else if (ThreadTimer.Checked)
                 {
-                    MessageBox.Show("thread timer pause again");
+                    ThreadsDotTimerClock();
+
+                    //Disable selection of other radio buttons
+                    FormsTimer.Enabled = false;
+                    TimersTimer.Enabled = false;
                 }
 
                 else
                 {
-                    MessageBox.Show("timers timer pause again");
+                    TimersDotTimerClock();
+
+                    //Disable selection of other radio buttons
+                    ThreadTimer.Enabled = false;
+                    TimersTimer.Enabled = false;
                 }
-                
+
 
                 //Set the pause button indicator to false
                 pauseButtonIndicator = false;
@@ -144,22 +189,44 @@ namespace Timer
             if (FormsTimer.Checked)
             {
                 this.TimerClock.Enabled = false;
+
+                //Disable selection of other radio buttons
+                ThreadTimer.Enabled = false;
+                TimersTimer.Enabled = false;
             }
 
             else if (ThreadTimer.Checked)
             {
-                
+                thTimer.Dispose();
+
+                //Disable selection of other radio buttons
+                FormsTimer.Enabled = false;
+                TimersTimer.Enabled = false;
             }
 
             else
             {
-                
+                tiTimer.Dispose();
+
+                //Disable selection of other radio buttons
+                FormsTimer.Enabled = false;
+                ThreadTimer.Enabled = false;
             }
 
             //Enable Start button, and disable Pause and Reset buttons
             this.StartButton.Enabled = true;
             this.PauseButton.Enabled = false;
             this.ResetButton.Enabled = false;
+
+            //Enable all the radio buttons
+            FormsTimer.Enabled = true;
+            ThreadTimer.Enabled = true;
+            TimersTimer.Enabled = true;
+
+            //Enable the Combo boxes once timer has started
+            this.SecondsComboBox.Enabled = true;
+            this.MinutesComboBox.Enabled = true;
+            this.HoursComboBox.Enabled = true;
 
             //Reset Timer display
             this.TimerDisplay.Text = "00:00:00";
@@ -168,7 +235,7 @@ namespace Timer
             ComboBoxDefaultValues();
         }
         #endregion
-            
+
         #region Forms.Timer Clock Method
         private void TimerClock_Tick(object sender, EventArgs e)
         {
@@ -182,7 +249,10 @@ namespace Timer
             else
             {
                 this.TimerClock.Stop();
-                MessageBox.Show("Time Over!");
+                this.TimerDisplay.Text = "Over!";
+
+                //Diable the Pause button also
+                this.PauseButton.Enabled = false;
             }
         }
         #endregion
@@ -212,17 +282,65 @@ namespace Timer
                 {
                     RunTimer();
                 });
-                
+
             }
 
             //If total seconds is 0, stop the timer
             else
             {
-                tiTimer.Stop();
+                //Stop the timer
+                //tiTimer.Stop();
                 tiTimer.Dispose();
-                MessageBox.Show("Time Over!");
+
+                this.BeginInvoke((Action)delegate ()
+                {
+                    this.TimerDisplay.Text = "Over!";
+                });
+
+                //Diable the Pause button also; done by avoiding cross-thread error
+                this.BeginInvoke((Action)delegate ()
+                {
+                    this.PauseButton.Enabled = false;
+                });
+                
                 return;
             }
+        }
+        #endregion
+
+        #region Threads.Timer Clock Method
+
+        private ThreadsDotTimer thTimer;
+
+        private void ThreadsDotTimerClock()
+        {
+            //The TimerCallback delegate passed as a parameter call this function
+            TimerCallback TickTimer = state =>
+            this.BeginInvoke((Action)delegate ()
+            {
+                //Run the timer till total seconds is not 0
+                if (totalseconds > 0)
+                {
+                    RunTimer();
+                }
+
+                else
+                {
+                    //Stop the timer when total seconds becomes 0
+                    thTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
+                    this.BeginInvoke((Action)delegate ()
+                    {
+                        this.TimerDisplay.Text = "Over!";
+                    });
+
+                    //Diable the Pause button also
+                    this.PauseButton.Enabled = false;
+                }
+            });
+
+            //Create a Timers.Timer object with an interval of one second
+            thTimer = new ThreadsDotTimer(new TimerCallback(TickTimer), null, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1));
         }
         #endregion
 
@@ -271,5 +389,7 @@ namespace Timer
             return;
         }
         #endregion
+
     }
+
 }
